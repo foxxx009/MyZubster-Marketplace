@@ -1,4 +1,5 @@
 const express = require('express');
+const axios = require('axios');
 const cors = require('cors');
 const path = require('path');
 const { Sequelize, DataTypes } = require('sequelize');
@@ -44,6 +45,18 @@ const Order = sequelize.define('Order', {
   amount: { type: DataTypes.FLOAT, allowNull: false },
   status: { type: DataTypes.STRING, defaultValue: 'pending' },
   payment_id: { type: DataTypes.STRING },
+  paymentMethod: {
+    type: DataTypes.ENUM('standard', 'escrow'),
+    defaultValue: 'standard'
+  },
+  escrowId: {
+    type: DataTypes.STRING,
+    allowNull: true
+  },
+  escrowStatus: {
+    type: DataTypes.ENUM('pending', 'funded', 'completed', 'disputed', 'refunded'),
+    allowNull: true
+  },
 });
 
 const WebhookLog = sequelize.define('WebhookLog', {

@@ -78,6 +78,18 @@ module.exports = (sequelize) => {
     completedAt: {
       type: DataTypes.DATE,
       allowNull: true
+    },
+    paymentMethod: {
+      type: DataTypes.ENUM('standard', 'escrow'),
+      defaultValue: 'standard'
+    },
+    escrowId: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    escrowStatus: {
+      type: DataTypes.ENUM('pending', 'funded', 'completed', 'disputed', 'refunded'),
+      allowNull: true
     }
   }, {
     timestamps: true,
